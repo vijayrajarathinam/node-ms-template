@@ -1,10 +1,10 @@
-## deployment steps for any VM
+## Deployment steps for any VM
 
-Included my steps for ubuntu VM deployment in deployment-steps.md
+I included my steps for Ubuntu VM deployment in [deployment-steps.md](deployment-steps.md)
 
-## Docker images [Node MS]
+## Docker images [Node Microservices]
 
-[![MasterHead]([https://i.postimg.cc/MTdBvFVT/docker.png](https://github.com/vijayrajarathinam/node-ms-template/blob/4c36fc33b7316f24b1b79c80fa571adabcbc9204/docker.png))](https://github.com/vijayrajarathinam/node-ms-template)
+![docker Image](https://raw.githubusercontent.com/vijayrajarathinam/node-ms-template/refs/heads/main/docker.png)
 
 ## Dependencies
 
@@ -14,6 +14,6 @@ npm i cors dotenv express express-http-proxy express-rate-limit helmet ioredis r
 
 npm i -D nodemon
 
-## rabbitmq admin gui
+## Rabbitmq admin GUI
 
 rabbitmq-plugins enable rabbitmq_management
