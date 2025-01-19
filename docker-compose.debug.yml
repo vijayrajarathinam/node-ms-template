@@ -3,20 +3,26 @@ version: "3.8"
 services:
   api-gateway:
     image: api-gateway
-    build: ./api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: ./api-gateway/DockerFile
     env_file: ./api-gateway/.env
     ports:
       - "3000:3000"
+      - "9229:9229"
+    command: ["node", "--inspect=0.0.0.0:9229", "index.js"]
     depends_on:
       - redis
       - rabbitmq
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
   user-service:
     image: user-service
-    build: ./user-service
+    build:
+      context: ./user-service
+      dockerfile: ./user-service/DockerFile
     env_file: ./user-service/.env
     ports:
       - "3001:3001"
@@ -29,12 +35,14 @@ services:
     networks:
       - node-network
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
   post-service:
     image: post-service
-    build: ./post-service
+    build:
+      context: ./post-service
+      dockerfile: ./post-service/DockerFile
     env_file: ./post-service/.env
     ports:
       - "3002:3002"
@@ -47,12 +55,14 @@ services:
     networks:
       - node-network
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
   media-service:
     image: media-service
-    build: ./media-service
+    build:
+      context: ./media-service
+      dockerfile: ./media-service/DockerFile
     env_file: ./media-service/.env
     ports:
       - "3003:3003"
@@ -61,7 +71,7 @@ services:
       - rabbitmq
       - mongodb
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
     volumes:
@@ -70,7 +80,9 @@ services:
       - node-network
   search-service:
     image: search-service
-    build: ./search-service
+    build:
+      context: ./search-service
+      dockerfile: ./search-service/DockerFile
     env_file: ./search-service/.env
     ports:
       - "3004:3004"
@@ -83,11 +95,11 @@ services:
     networks:
       - node-network
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
       - REDIS_URL=redis://redis:6379
       - RABBITMQ_URL=amqp://rabbitmq:5672
 
-  # configure external services
+  # configure services
   mongodb:
     image: mongo
     ports:
@@ -102,15 +114,15 @@ services:
     ports:
       - "6379:6379"
   rabbitmq:
-    image: rabbitmq:3-management # this image comes with rabbitmq management interface
-    ports:
-      - "5672:5672"
-      - "15672:15672" # this port expose management tool interface communication
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+  image: rabbitmq:3-management # this image comes with rabbitmq management interface
+  ports:
+    - "5672:5672"
+    - "15672:15672" # this port expose management tool interface communication
+  healthcheck:
+    test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+    interval: 30s
+    timeout: 10s
+    retries: 5
 
 # defining volume for mongo db
 volumes:
