@@ -4,7 +4,7 @@ Included my steps for ubuntu VM deployment in deployment-steps.md
 
 ## Docker images [Node MS]
 
-[![MasterHead](https://i.postimg.cc/MTdBvFVT/docker.png)](https://github.com/vijayrajarathinam/node-ms-template)
+[![MasterHead]([https://i.postimg.cc/MTdBvFVT/docker.png](https://github.com/vijayrajarathinam/node-ms-template/blob/4c36fc33b7316f24b1b79c80fa571adabcbc9204/docker.png))](https://github.com/vijayrajarathinam/node-ms-template)
 
 ## Dependencies
 
